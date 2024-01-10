@@ -8,22 +8,25 @@ import com.plcoding.contactscomposemultiplatform.database.ContactDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 class SqlDelightContactDataSource(
     db: ContactDatabase,
+    private val context: CoroutineContext = EmptyCoroutineContext,
 ) : ContactDataSource {
     private val queries = db.contactQueries
 
     override fun getContacts(): Flow<List<Contact>> {
-        return queries.getContacts().asFlow().mapToList().map { contactEntities ->
-            contactEntities.map { contactEntity ->
-                contactEntity.toContact()
+        return queries.getContacts().asFlow().mapToList(context).map { contactEntities ->
+                contactEntities.map { contactEntity ->
+                    contactEntity.toContact()
+                }
             }
-        }
     }
 
     override fun getRecentContacts(limit: Int): Flow<List<Contact>> {
-        return queries.getRecentContacts(limit.toLong()).asFlow().mapToList()
+        return queries.getRecentContacts(limit.toLong()).asFlow().mapToList(context)
             .map { contactEntities ->
                 contactEntities.map { contactEntity ->
                     contactEntity.toContact()
