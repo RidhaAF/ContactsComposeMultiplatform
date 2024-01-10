@@ -11,7 +11,7 @@ sealed interface ContactListEvent {
     data class OnPhoneNumberChanged(val phoneNumber: String) : ContactListEvent
     class OnPhotoPicked(val photoByteArray: ByteArray) : ContactListEvent
     object OnAddPhotoClicked : ContactListEvent
-    object OnSaveClick : ContactListEvent
+    object SaveContact : ContactListEvent
     data class SelectContact(val contact: Contact) : ContactListEvent
     data class EditContact(val contact: Contact) : ContactListEvent
     object DeleteContact : ContactListEvent

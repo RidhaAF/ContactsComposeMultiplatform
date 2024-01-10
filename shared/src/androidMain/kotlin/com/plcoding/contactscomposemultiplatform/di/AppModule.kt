@@ -6,6 +6,7 @@ import com.plcoding.contactscomposemultiplatform.contacts.domain.ContactDataSour
 import com.plcoding.contactscomposemultiplatform.core.data.DatabaseDriverFactory
 import com.plcoding.contactscomposemultiplatform.database.ContactDatabase
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class AppModule(
     private val context: Context,
 ) {

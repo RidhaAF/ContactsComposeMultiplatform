@@ -56,24 +56,22 @@ class ContactListViewModel(
 
             ContactListEvent.DismissContact -> {
                 viewModelScope.launch {
-                    _state.value.selectedContact?.id?.let { id ->
-                        _state.update {
-                            it.copy(
-                                isSelectedContactSheetOpen = false,
-                                isAddContactSheetOpen = false,
-                                firstNameError = null,
-                                lastNameError = null,
-                                emailError = null,
-                                phoneNumberError = null,
-                            )
-                        }
-                        delay(300L)
-                        newContact = null
-                        _state.update {
-                            it.copy(
-                                selectedContact = null,
-                            )
-                        }
+                    _state.update {
+                        it.copy(
+                            isSelectedContactSheetOpen = false,
+                            isAddContactSheetOpen = false,
+                            firstNameError = null,
+                            lastNameError = null,
+                            emailError = null,
+                            phoneNumberError = null,
+                        )
+                    }
+                    delay(300L)
+                    newContact = null
+                    _state.update {
+                        it.copy(
+                            selectedContact = null,
+                        )
                     }
                 }
             }
@@ -135,7 +133,7 @@ class ContactListViewModel(
                 )
             }
 
-            ContactListEvent.OnSaveClick -> {
+            ContactListEvent.SaveContact -> {
                 newContact?.let { contact ->
                     val results = ContactValidator.validateContact(contact)
                     val errors = listOfNotNull(

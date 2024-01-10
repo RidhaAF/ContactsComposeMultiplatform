@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.plcoding.contactscomposemultiplatform.android"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.plcoding.contactscomposemultiplatform.android"
         minSdk = 24
@@ -18,7 +18,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = "1.5.7"
     }
     packagingOptions {
         resources {
@@ -46,5 +46,5 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.0")
     implementation("androidx.compose.foundation:foundation:1.4.0")
     implementation("androidx.compose.material:material:1.4.0")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.activity:activity-compose:1.8.2")
 }
