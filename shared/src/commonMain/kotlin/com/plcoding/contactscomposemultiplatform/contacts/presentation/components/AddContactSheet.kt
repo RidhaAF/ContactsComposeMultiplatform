@@ -53,7 +53,7 @@ fun AddContactSheet(
                 Spacer(modifier = Modifier.height(64.dp))
                 if (newContact?.photoByte == null) {
                     Box(
-                        modifier = Modifier.size(160.dp).clip(RoundedCornerShape(40.dp))
+                        modifier = Modifier.size(152.dp).clip(RoundedCornerShape(40.dp))
                             .background(MaterialTheme.colorScheme.secondaryContainer).clickable {
                                 onEvent(ContactListEvent.OnAddPhotoClicked)
                             }.border(
@@ -73,7 +73,7 @@ fun AddContactSheet(
                 } else {
                     ContactPhoto(
                         contact = newContact,
-                        modifier = Modifier.size(160.dp).clickable {
+                        modifier = Modifier.size(152.dp).clickable {
                             onEvent(ContactListEvent.OnAddPhotoClicked)
                         },
                     )
