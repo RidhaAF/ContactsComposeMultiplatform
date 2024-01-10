@@ -22,12 +22,9 @@ fun App(
         darkTheme = darkTheme,
         dynamicColor = dynamicColor,
     ) {
-        val viewModel = getViewModel(
-            key = "contact-list-vew",
-            factory = viewModelFactory {
-                ContactListViewModel()
-            }
-        )
+        val viewModel = getViewModel(key = "contact-list-vew", factory = viewModelFactory {
+            ContactListViewModel()
+        })
 
         val state by viewModel.state.collectAsState()
 
