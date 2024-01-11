@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.plcoding.contactscomposemultiplatform.android"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
     }
@@ -20,7 +20,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.7"
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -41,10 +41,10 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.4.0")
-    implementation("androidx.compose.ui:ui-tooling:1.4.0")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.0")
-    implementation("androidx.compose.foundation:foundation:1.4.0")
-    implementation("androidx.compose.material:material:1.4.0")
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.ui:ui-tooling:1.5.4")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
+    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation("androidx.compose.material:material:1.5.4")
     implementation("androidx.activity:activity-compose:1.8.2")
 }

@@ -81,7 +81,7 @@ fun AddContactSheet(
                 Spacer(Modifier.height(16.dp))
                 ContactTextField(
                     value = newContact?.firstName ?: "",
-                    placeholder = "First name",
+                    placeholder = "First Name",
                     error = state.firstNameError,
                     onValueChanged = {
                         onEvent(ContactListEvent.OnFirstNameChanged(it))
@@ -91,7 +91,7 @@ fun AddContactSheet(
                 Spacer(Modifier.height(16.dp))
                 ContactTextField(
                     value = newContact?.lastName ?: "",
-                    placeholder = "Last name",
+                    placeholder = "Last Name",
                     error = state.lastNameError,
                     onValueChanged = {
                         onEvent(ContactListEvent.OnLastNameChanged(it))
@@ -111,7 +111,7 @@ fun AddContactSheet(
                 Spacer(Modifier.height(16.dp))
                 ContactTextField(
                     value = newContact?.phoneNumber ?: "",
-                    placeholder = "Phone number",
+                    placeholder = "Phone Number",
                     error = state.phoneNumberError,
                     onValueChanged = {
                         onEvent(ContactListEvent.OnPhoneNumberChanged(it))
