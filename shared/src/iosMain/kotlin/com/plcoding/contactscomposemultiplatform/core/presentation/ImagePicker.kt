@@ -26,7 +26,6 @@ actual class ImagePicker(
     @OptIn(ExperimentalForeignApi::class)
     private val delegate = object : NSObject(), UIImagePickerControllerDelegateProtocol,
         UINavigationControllerDelegateProtocol {
-
         override fun imagePickerController(
             picker: UIImagePickerController,
             didFinishPickingImage: UIImage,
