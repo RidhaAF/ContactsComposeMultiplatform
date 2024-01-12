@@ -64,6 +64,6 @@ class SqlDelightContactDataSource(
             imageStorage.deleteImage(it)
         }
 
-        deleteContact(id)
+        return queries.deleteContact(id)
     }
 }
