@@ -26,7 +26,7 @@ class ContactListViewModel(
     ) { state, contacts, recentContacts ->
         state.copy(
             contacts = contacts,
-            recentlyAddedContact = recentContacts,
+            recentlyAddedContacts = recentContacts,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), ContactListState())
 
