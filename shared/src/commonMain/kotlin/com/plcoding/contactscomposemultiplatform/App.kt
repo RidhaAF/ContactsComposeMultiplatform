@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.plcoding.contactscomposemultiplatform.contacts.data.SqlDelightContactDataSource
 import com.plcoding.contactscomposemultiplatform.contacts.presentation.ContactListScreen
 import com.plcoding.contactscomposemultiplatform.contacts.presentation.ContactListViewModel
 import com.plcoding.contactscomposemultiplatform.core.presentation.ContactsTheme
@@ -21,28 +20,27 @@ fun App(
     darkTheme: Boolean,
     dynamicColor: Boolean,
     appModule: AppModule,
-    imagePicker: ImagePicker
+    imagePicker: ImagePicker,
 ) {
     ContactsTheme(
         darkTheme = darkTheme,
-        dynamicColor = dynamicColor
+        dynamicColor = dynamicColor,
     ) {
-        val viewModel = getViewModel(
-            key = "contact-list-screen",
-            factory = viewModelFactory {
-                ContactListViewModel(appModule.contactDataSource)
-            }
-        )
+        val viewModel = getViewModel(key = "contact-list-vew", factory = viewModelFactory {
+            ContactListViewModel(appModule.contactDataSource)
+        })
+
         val state by viewModel.state.collectAsState()
+
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colorScheme.background,
         ) {
             ContactListScreen(
                 state = state,
                 newContact = viewModel.newContact,
                 onEvent = viewModel::onEvent,
-                imagePicker = imagePicker
+                imagePicker = imagePicker,
             )
         }
     }

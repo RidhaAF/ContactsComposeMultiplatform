@@ -20,30 +20,26 @@ import com.plcoding.contactscomposemultiplatform.contacts.domain.Contact
 fun RecentlyAddedContacts(
     contacts: List<Contact>,
     onClick: (Contact) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-    ) {
-        if(contacts.isNotEmpty()) {
+    Column(modifier = modifier) {
+        if (contacts.isNotEmpty()) {
             Text(
-                text = "Recently Added",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                fontWeight = FontWeight.Bold
+                text = "Recently added",
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                fontWeight = FontWeight.Bold,
             )
             Spacer(Modifier.height(16.dp))
         }
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             items(contacts) { contact ->
                 ContactPreviewItem(
                     contact = contact,
-                    onClick = { onClick(contact) }
+                    onClick = { onClick(contact) },
                 )
             }
         }

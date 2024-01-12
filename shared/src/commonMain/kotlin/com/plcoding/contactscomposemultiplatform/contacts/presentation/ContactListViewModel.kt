@@ -16,18 +16,17 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ContactListViewModel(
-    private val contactDataSource: ContactDataSource
-): ViewModel() {
-
+    private val contactDataSource: ContactDataSource,
+) : ViewModel() {
     private val _state = MutableStateFlow(ContactListState())
     val state = combine(
         _state,
         contactDataSource.getContacts(),
-        contactDataSource.getRecentContacts(20)
+        contactDataSource.getRecentContacts(20),
     ) { state, contacts, recentContacts ->
         state.copy(
             contacts = contacts,
-            recentlyAddedContacts = recentContacts
+            recentlyAddedContacts = recentContacts,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), ContactListState())
 
@@ -35,123 +34,152 @@ class ContactListViewModel(
         private set
 
     fun onEvent(event: ContactListEvent) {
-        when(event) {
+        when (event) {
             ContactListEvent.DeleteContact -> {
                 viewModelScope.launch {
                     _state.value.selectedContact?.id?.let { id ->
-                        _state.update { it.copy(
-                            isSelectedContactSheetOpen = false
-                        ) }
+                        _state.update {
+                            it.copy(
+                                isSelectedContactSheetOpen = false,
+                            )
+                        }
                         contactDataSource.deleteContact(id)
-                        delay(300L) // Animation delay
-                        _state.update { it.copy(
-                            selectedContact = null
-                        ) }
+                        delay(300L)
+                        _state.update {
+                            it.copy(
+                                selectedContact = null,
+                            )
+                        }
                     }
                 }
             }
+
             ContactListEvent.DismissContact -> {
                 viewModelScope.launch {
-                    _state.update { it.copy(
-                        isSelectedContactSheetOpen = false,
-                        isAddContactSheetOpen = false,
-                        firstNameError = null,
-                        lastNameError = null,
-                        emailError = null,
-                        phoneNumberError = null
-                    ) }
-                    delay(300L) // Animation delay
+                    _state.update {
+                        it.copy(
+                            isSelectedContactSheetOpen = false,
+                            isAddContactSheetOpen = false,
+                            firstNameError = null,
+                            lastNameError = null,
+                            emailError = null,
+                            phoneNumberError = null,
+                        )
+                    }
+                    delay(300L)
                     newContact = null
-                    _state.update { it.copy(
-                        selectedContact = null
-                    ) }
+                    _state.update {
+                        it.copy(
+                            selectedContact = null,
+                        )
+                    }
                 }
             }
+
             is ContactListEvent.EditContact -> {
-                _state.update { it.copy(
-                    selectedContact = null,
-                    isAddContactSheetOpen = true,
-                    isSelectedContactSheetOpen = false
-                ) }
+                _state.update {
+                    it.copy(
+                        selectedContact = null,
+                        isAddContactSheetOpen = true,
+                        isSelectedContactSheetOpen = false,
+                    )
+                }
                 newContact = event.contact
             }
+
             ContactListEvent.OnAddNewContactClick -> {
-                _state.update { it.copy(
-                    isAddContactSheetOpen = true
-                ) }
+                _state.update {
+                    it.copy(
+                        isAddContactSheetOpen = true,
+                    )
+                }
                 newContact = Contact(
                     id = null,
                     firstName = "",
                     lastName = "",
                     email = "",
                     phoneNumber = "",
-                    photoBytes = null
+                    photoByte = null,
                 )
             }
+
             is ContactListEvent.OnEmailChanged -> {
                 newContact = newContact?.copy(
-                    email = event.value
+                    email = event.email
                 )
             }
+
             is ContactListEvent.OnFirstNameChanged -> {
                 newContact = newContact?.copy(
-                    firstName = event.value
+                    firstName = event.firstName
                 )
             }
+
             is ContactListEvent.OnLastNameChanged -> {
                 newContact = newContact?.copy(
-                    lastName = event.value
+                    lastName = event.lastName
                 )
             }
+
             is ContactListEvent.OnPhoneNumberChanged -> {
                 newContact = newContact?.copy(
-                    phoneNumber = event.value
+                    phoneNumber = event.phoneNumber
                 )
             }
+
             is ContactListEvent.OnPhotoPicked -> {
                 newContact = newContact?.copy(
-                    photoBytes = event.bytes
+                    photoByte = event.photoByteArray
                 )
             }
+
             ContactListEvent.SaveContact -> {
                 newContact?.let { contact ->
-                    val result = ContactValidator.validateContact(contact)
+                    val results = ContactValidator.validateContact(contact)
                     val errors = listOfNotNull(
-                        result.firstNameError,
-                        result.lastNameError,
-                        result.emailError,
-                        result.phoneNumberError
+                        results.firstNameError,
+                        results.lastNameError,
+                        results.emailError,
+                        results.phoneNumberError,
                     )
 
-                    if(errors.isEmpty()) {
-                        _state.update { it.copy(
-                            isAddContactSheetOpen = false,
-                            firstNameError = null,
-                            lastNameError = null,
-                            emailError = null,
-                            phoneNumberError = null
-                        ) }
+                    if (errors.isEmpty()) {
+                        _state.update {
+                            it.copy(
+                                isAddContactSheetOpen = false,
+                                firstNameError = null,
+                                lastNameError = null,
+                                emailError = null,
+                                phoneNumberError = null,
+                            )
+                        }
                         viewModelScope.launch {
                             contactDataSource.insertContact(contact)
-                            delay(300L) // Animation delay
+                            delay(300L)
                             newContact = null
                         }
                     } else {
-                        _state.update { it.copy(
-                            firstNameError = result.firstNameError,
-                            lastNameError = result.lastNameError,
-                            emailError = result.emailError,
-                            phoneNumberError = result.phoneNumberError
-                        ) }
+                        _state.update {
+                            it.copy(
+                                firstNameError = results.firstNameError,
+                                lastNameError = results.lastNameError,
+                                emailError = results.emailError,
+                                phoneNumberError = results.phoneNumberError,
+                            )
+                        }
                     }
                 }
             }
+
             is ContactListEvent.SelectContact -> {
-                _state.update { it.copy(
-                    selectedContact = event.contact,
-                    isSelectedContactSheetOpen = true
-                ) }
+                _state.update {
+                    it.copy(
+                        selectedContact = event.contact,
+                        isSelectedContactSheetOpen = true,
+                    )
+                }
             }
+
             else -> Unit
         }
     }

@@ -3,7 +3,6 @@ package com.plcoding.contactscomposemultiplatform.contacts.presentation.componen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,18 +15,16 @@ import com.plcoding.contactscomposemultiplatform.contacts.domain.Contact
 fun ContactPreviewItem(
     contact: Contact,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .clickable(onClick = onClick),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier.clickable(onClick = onClick),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         ContactPhoto(
-            contact = contact,
-            modifier = Modifier.size(50.dp)
+            contact = contact, modifier = Modifier.size(56.dp)
         )
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.size(8.dp))
         Text(
             text = contact.firstName,
         )

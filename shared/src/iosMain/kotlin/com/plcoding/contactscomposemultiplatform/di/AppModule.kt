@@ -6,14 +6,14 @@ import com.plcoding.contactscomposemultiplatform.core.data.DatabaseDriverFactory
 import com.plcoding.contactscomposemultiplatform.core.data.ImageStorage
 import com.plcoding.contactscomposemultiplatform.database.ContactDatabase
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class AppModule {
-
     actual val contactDataSource: ContactDataSource by lazy {
         SqlDelightContactDataSource(
             db = ContactDatabase(
                 driver = DatabaseDriverFactory().create()
             ),
-            imageStorage = ImageStorage()
+            imageStorage = ImageStorage(),
         )
     }
 }

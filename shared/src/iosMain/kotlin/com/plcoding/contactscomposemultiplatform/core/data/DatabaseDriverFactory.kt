@@ -1,11 +1,14 @@
 package com.plcoding.contactscomposemultiplatform.core.data
 
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.plcoding.contactscomposemultiplatform.database.ContactDatabase
-import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class DatabaseDriverFactory {
     actual fun create(): SqlDriver {
-        return NativeSqliteDriver(ContactDatabase.Schema, "contact.db")
+        return NativeSqliteDriver(
+            ContactDatabase.Schema, "contacts.db"
+        )
     }
 }

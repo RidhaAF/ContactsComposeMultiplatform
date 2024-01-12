@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 import java.util.UUID
 
 actual class ImageStorage(
-    private val context: Context
+    private val context: Context,
 ) {
     actual suspend fun saveImage(bytes: ByteArray): String {
         return withContext(Dispatchers.IO) {

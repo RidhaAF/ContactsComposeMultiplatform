@@ -17,35 +17,34 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.plcoding.contactscomposemultiplatform.contacts.domain.Contact
-import com.plcoding.contactscomposemultiplatform.core.presentation.rememberBitmapFromBytes
+import com.plcoding.contactscomposemultiplatform.core.presentation.rememberBitmapfromBytes
 
 @Composable
 fun ContactPhoto(
     contact: Contact?,
     modifier: Modifier = Modifier,
-    iconSize: Dp = 25.dp
+    iconSize: Dp = 24.dp,
 ) {
-    val bitmap = rememberBitmapFromBytes(contact?.photoBytes)
-    val photoModifier = modifier.clip(RoundedCornerShape(35))
+    val bitmap = rememberBitmapfromBytes(contact?.photoByte)
+    val photoModifier = modifier.clip(RoundedCornerShape(40))
 
-    if(bitmap != null) {
+    if (bitmap != null) {
         Image(
             bitmap = bitmap,
             contentDescription = contact?.firstName,
             modifier = photoModifier,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
     } else {
         Box(
-            modifier = photoModifier
-                .background(MaterialTheme.colorScheme.secondaryContainer),
-            contentAlignment = Alignment.Center
+            modifier = photoModifier.background(MaterialTheme.colorScheme.secondaryContainer),
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 imageVector = Icons.Rounded.Person,
                 contentDescription = contact?.firstName,
                 modifier = Modifier.size(iconSize),
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
+                tint = MaterialTheme.colorScheme.onSecondaryContainer,
             )
         }
     }

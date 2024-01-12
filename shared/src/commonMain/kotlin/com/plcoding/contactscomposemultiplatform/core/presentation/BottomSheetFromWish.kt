@@ -21,30 +21,27 @@ import androidx.compose.ui.unit.dp
 fun BottomSheetFromWish(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
+    content: @Composable ColumnScope.() -> Unit,
 ) {
     AnimatedVisibility(
         visible = visible,
         enter = slideInVertically(
             animationSpec = tween(durationMillis = 300),
-            initialOffsetY = { it }
+            initialOffsetY = { it },
         ),
         exit = slideOutVertically(
             animationSpec = tween(durationMillis = 300),
-            targetOffsetY = { it }
+            targetOffsetY = { it },
         ),
     ) {
         Column(
-            modifier = modifier
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 30.dp,
-                        topEnd = 30.dp
-                    )
+            modifier = modifier.clip(
+                RoundedCornerShape(
+                    topStart = 32.dp,
+                    topEnd = 32.dp,
                 )
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
+            ).background(MaterialTheme.colorScheme.surface).padding(16.dp)
+                .verticalScroll(rememberScrollState()),
         ) {
             content()
         }

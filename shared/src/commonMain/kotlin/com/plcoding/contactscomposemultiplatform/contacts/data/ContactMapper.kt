@@ -11,6 +11,6 @@ suspend fun ContactEntity.toContact(imageStorage: ImageStorage): Contact {
         lastName = lastName,
         email = email,
         phoneNumber = phoneNumber,
-        photoBytes = imagePath?.let { imageStorage.getImage(it) }
+        photoByte = imagePath?.let { imageStorage.getImage(it) },
     )
 }

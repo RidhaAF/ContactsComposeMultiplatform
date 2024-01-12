@@ -1,4 +1,4 @@
-CREATE TABLE contactEntity (
+CREATE TABLE contactEntity  (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     firstName TEXT NOT NULL,
     lastName TEXT NOT NULL,
@@ -8,20 +8,20 @@ CREATE TABLE contactEntity (
     imagePath TEXT
 );
 
-getContacts:
-SELECT *
-FROM contactEntity
-ORDER BY firstName ASC;
+ getContacts:
+ SELECT *
+ FROM contactEntity
+ ORDER BY firstName ASC;
 
-getRecentContacts:
-SELECT *
-FROM contactEntity
-ORDER BY createdAt DESC
-LIMIT :amount;
+ getRecentContacts:
+ SELECT *
+ FROM contactEntity
+ ORDER BY createdAt DESC
+ LIMIT :limit;
 
-insertContactEntity:
-INSERT OR REPLACE
-INTO contactEntity(
+ insertContact:
+ INSERT OR REPLACE
+ INTO contactEntity(
     id,
     firstName,
     lastName,
@@ -29,13 +29,13 @@ INTO contactEntity(
     email,
     createdAt,
     imagePath
-) VALUES (?, ?, ?, ?, ? ,?, ?);
+ ) VALUES (?, ?, ?, ?, ?, ?, ?);
 
-deleteContact:
-DELETE FROM contactEntity
-WHERE id = :id;
+ deleteContact:
+ DELETE FROM contactEntity
+ WHERE id = :id;
 
-getContactById:
-SELECT *
-FROM contactEntity
-WHERE id = :id;
+ getContactById:
+ SELECT *
+ FROM contactEntity
+ WHERE id = :id;

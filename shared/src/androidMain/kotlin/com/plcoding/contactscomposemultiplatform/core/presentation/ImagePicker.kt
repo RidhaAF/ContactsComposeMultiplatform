@@ -6,15 +6,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class ImagePicker(
-    private val activity: ComponentActivity
+    private val activity: ComponentActivity,
 ) {
     private lateinit var getContent: ActivityResultLauncher<String>
 
     @Composable
     actual fun registerPicker(onImagePicked: (ByteArray) -> Unit) {
         getContent = rememberLauncherForActivityResult(
-            ActivityResultContracts.GetContent()
+            ActivityResultContracts.GetContent(),
         ) { uri ->
             uri?.let {
                 activity.contentResolver.openInputStream(uri)?.use {

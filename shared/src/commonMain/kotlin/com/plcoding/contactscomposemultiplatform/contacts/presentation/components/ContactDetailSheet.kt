@@ -1,7 +1,6 @@
 package com.plcoding.contactscomposemultiplatform.contacts.presentation.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,15 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Phone
-import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -48,26 +44,27 @@ fun ContactDetailSheet(
     isOpen: Boolean,
     selectedContact: Contact?,
     onEvent: (ContactListEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     BottomSheetFromWish(
         visible = isOpen,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.TopStart
+            contentAlignment = Alignment.TopStart,
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(Modifier.height(60.dp))
+                Spacer(modifier = Modifier.height(64.dp))
                 ContactPhoto(
                     contact = selectedContact,
-                    iconSize = 50.dp,
-                    modifier = Modifier
-                        .size(150.dp)
+                    iconSize = 56.dp,
+                    modifier = Modifier.size(152.dp).clickable {
+                        onEvent(ContactListEvent.OnAddPhotoClicked)
+                    },
                 )
                 Spacer(Modifier.height(16.dp))
                 Text(
@@ -75,7 +72,7 @@ fun ContactDetailSheet(
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp
+                    fontSize = 30.sp,
                 )
                 Spacer(Modifier.height(16.dp))
                 EditRow(
@@ -86,31 +83,31 @@ fun ContactDetailSheet(
                     },
                     onDeleteClick = {
                         onEvent(ContactListEvent.DeleteContact)
-                    }
+                    },
                 )
                 Spacer(Modifier.height(16.dp))
                 ContactInfoSection(
-                    title = "Phone number",
+                    title = "Phone Number",
                     value = selectedContact?.phoneNumber ?: "-",
                     icon = Icons.Rounded.Phone,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(16.dp))
                 ContactInfoSection(
                     title = "Email",
                     value = selectedContact?.email ?: "-",
                     icon = Icons.Rounded.Email,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
             IconButton(
                 onClick = {
                     onEvent(ContactListEvent.DismissContact)
-                }
+                },
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Close,
-                    contentDescription = "Close"
+                    contentDescription = "Close",
                 )
             }
         }
@@ -121,31 +118,31 @@ fun ContactDetailSheet(
 private fun EditRow(
     onEditClick: () -> Unit,
     onDeleteClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier) {
         FilledTonalIconButton(
             onClick = onEditClick,
             colors = IconButtonDefaults.filledTonalIconButtonColors(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-            )
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            ),
         ) {
             Icon(
                 imageVector = Icons.Rounded.Edit,
-                contentDescription = "Edit contact"
+                contentDescription = "Edit contact",
             )
         }
         FilledTonalIconButton(
             onClick = onDeleteClick,
             colors = IconButtonDefaults.filledTonalIconButtonColors(
                 containerColor = MaterialTheme.colorScheme.errorContainer,
-                contentColor = MaterialTheme.colorScheme.onErrorContainer
-            )
+                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+            ),
         ) {
             Icon(
                 imageVector = Icons.Rounded.Delete,
-                contentDescription = "Delete contact"
+                contentDescription = "Delete contact",
             )
         }
     }
@@ -156,37 +153,35 @@ private fun ContactInfoSection(
     title: String,
     value: String,
     icon: ImageVector,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.secondaryContainer)
-                .padding(8.dp),
-            tint = MaterialTheme.colorScheme.onSecondaryContainer
+            contentDescription = title,
+            modifier = Modifier.clip(CircleShape)
+                .background(MaterialTheme.colorScheme.secondaryContainer).padding(8.dp),
+            tint = MaterialTheme.colorScheme.onSecondaryContainer,
         )
         Spacer(Modifier.width(16.dp))
         Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Text(
                 text = title,
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.secondary,
-                fontSize = 12.sp
+                fontSize = 12.sp,
             )
             Text(
                 text = value,
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 18.sp
+                fontSize = 18.sp,
             )
         }
     }

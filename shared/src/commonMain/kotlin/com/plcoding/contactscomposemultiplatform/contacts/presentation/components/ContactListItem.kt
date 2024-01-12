@@ -14,22 +14,20 @@ import com.plcoding.contactscomposemultiplatform.contacts.domain.Contact
 @Composable
 fun ContactListItem(
     contact: Contact,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         ContactPhoto(
             contact = contact,
-            modifier = Modifier.size(50.dp)
+            modifier = Modifier.size(48.dp),
         )
-
         Spacer(Modifier.width(16.dp))
-
         Text(
             text = "${contact.firstName} ${contact.lastName}",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
     }
 }

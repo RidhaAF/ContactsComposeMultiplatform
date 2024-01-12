@@ -9,12 +9,12 @@ import platform.UIKit.UIUserInterfaceStyle
 
 fun MainViewController() = ComposeUIViewController {
     val isDarkTheme =
-        UIScreen.mainScreen.traitCollection.userInterfaceStyle ==
-                UIUserInterfaceStyle.UIUserInterfaceStyleDark
+        UIScreen.mainScreen.traitCollection.userInterfaceStyle == UIUserInterfaceStyle.UIUserInterfaceStyleDark
+
     App(
         darkTheme = isDarkTheme,
         dynamicColor = false,
         appModule = AppModule(),
-        imagePicker = ImagePickerFactory(LocalUIViewController.current).createPicker()
+        imagePicker = ImagePickerFactory(LocalUIViewController.current).createPicker(),
     )
 }

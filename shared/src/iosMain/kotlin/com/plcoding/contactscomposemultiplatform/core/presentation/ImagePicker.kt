@@ -1,6 +1,7 @@
 package com.plcoding.contactscomposemultiplatform.core.presentation
 
 import androidx.compose.runtime.Composable
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.refTo
 import platform.UIKit.UIImage
 import platform.UIKit.UIImageJPEGRepresentation
@@ -12,8 +13,9 @@ import platform.UIKit.UIViewController
 import platform.darwin.NSObject
 import platform.posix.memcpy
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class ImagePicker(
-    private val rootController: UIViewController
+    private val rootController: UIViewController,
 ) {
     private val imagePickerController = UIImagePickerController().apply {
         sourceType = UIImagePickerControllerSourceType.UIImagePickerControllerSourceTypePhotoLibrary
@@ -21,9 +23,9 @@ actual class ImagePicker(
 
     private var onImagePicked: (ByteArray) -> Unit = {}
 
+    @OptIn(ExperimentalForeignApi::class)
     private val delegate = object : NSObject(), UIImagePickerControllerDelegateProtocol,
         UINavigationControllerDelegateProtocol {
-
         override fun imagePickerController(
             picker: UIImagePickerController,
             didFinishPickingImage: UIImage,
